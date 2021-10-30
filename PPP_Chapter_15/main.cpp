@@ -12,19 +12,34 @@
 using namespace Graph_lib;
 
 
+struct Name {
+    
+};
 
 struct Person {
-    Person(std::string name, int age) : n{ name }, a{ age } {}
+    Person(std::string name, int age);
     Person() : n{ "" }, a{ 0 } {}
     std::string name() const { return n; }
     int age() const { return a; }
 
-    void set_name(std::string& const name) { n = name; }
+    void set_name(const std::string& name) { n = name; }
     void set_age(int age) { a = age; }
 private:
     std::string n;
     int a;
 };
+
+Person::Person(std::string name, int age) 
+    : n{ name }, a{ age } 
+{
+    const std::string false_chars{ ";:\"'[]*&^%$#@!" };
+    for (char c1 : name) {        
+        for (char c2 : false_chars) {
+            if (c1 == c2) error("name has an invalid character");
+        }
+    }
+    if (0 > age || age > 150) error("age must be in 0:150 range");
+}
 
 bool operator==(const Person& p1, const Person& p2)
 {
@@ -49,19 +64,11 @@ istream& operator>>(istream& is, Person& p)
 // format: name,age
 {
     std::string n;
-    int a; 
+    int a;
 
     is >> n >> a;
     if (!is) return is;
-    for (char c1 : n) {
-        std::string chars{ ";:\"'[]*&^%$#@!" };
-        for (char c2 : chars) {
-            if (c1 == c2) error("name has an invalid character");
-        }
-    }
-    if (0 > a || a > 150) error("age must be in 0:150 range");
-    p.set_name(n);
-    p.set_age(a);
+    p = Person{ n,a };
     return is;
 }
 
