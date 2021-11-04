@@ -66,12 +66,14 @@ void My_fct::set_range(double r1, double r2)
 
 void My_fct::set_count(int count)
 {
+    if (count <= 0)error"count cannot be less than 1";
     count_p = count;
     reset();
 }
 
 void My_fct::set_scale(double xscale, double yscale)
 {
+    if (count <= 0)error"scales cannot be less than 1";
     x_scale_p = xscale;
     y_sclae_p = yscale;
     reset();
