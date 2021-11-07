@@ -44,16 +44,24 @@ double slope(double x) { return x / 2; }
 int main()
 try
 {
-    //  5. “Animate” (as in §15.5) the series 1–1/3+1/5–1/7+1/9–1/11+ . . . . It is
-    //  known as Leibniz’s series and converges to pi / 4.
+    //    6. Design and implement a bar graph class.Its basic data is a vector<double>
+    //       holding N values, and each value should be represented by a “bar” that is
+    //       a rectangle where the height represents the value.
     
-    Graph_lib::Window win{ Point{100,100},xmax,ymax,"Exercise 05" };
+    Graph_lib::Window win{ Point{100,100},xmax,ymax,"Exercise 06" };
 
-    Axis x{ Axis::x,x_axis_p,xlength,xlength / x_scale,"1==1 pixels" };
-    Axis y{ Axis::y,y_axis_p,ylength,ylength / y_scale,"1==500 pixels" };
+    Axis x{ Axis::x,x_axis_p,xlength,xlength / x_scale,"1==40 pixels" };
+    Axis y{ Axis::y,y_axis_p,ylength,ylength / y_scale,"1==40 pixels" };
 
-    Bar_graph s{ slope,r_min,r_max,orig,n_points,x_scale,y_scale };
+    vector<double>v;
+    for (int i = 0; i < 10; ++i) {
+        v.push_back(slope(i));
+    }
+
+    Bar_graph s{ orig,x_scale,y_scale,v };
+    s.set_spacing(20);
     s.set_fill_color(Color::blue);
+   
 
     win.attach(x);
     win.attach(y);

@@ -72,38 +72,36 @@ void My_fct::set_function(const Fct& f)
 //-------------------------------------------------------------------------
 // 5.
 
-Bar_graph::Bar_graph(Fct f, double r1, double r2, Point orig,
-    int count, double xscale, double yscale) :
-    My_fct{ f, r1, r2, orig, count, xscale, yscale }
+Bar_graph::Bar_graph(Point orig, double xscale, double yscale) :
+    origin{ orig }, x_scale{ xscale }, y_scale{ yscale }, spacing{10}
 {
-    
-    int num_points = My_fct::number_of_points();
-    for (int i = 0; i < num_points; ++i) {
-        add_data(orig.y- My_fct::point(i).y );
-
-        Point rec1 = My_fct::point(i);
-
-        Point rec2 = Point{ My_fct::point(i).x
-            + int(My_fct::range1() * x_scale()),
-            My_fct::origin().y };
-        
-        if (rec1.y!=rec2.y) {
-            bars.push_back(new Rectangle{ rec1,rec2 });            
-        }        
-    }
     draw_lines();
 }
 
-void Bar_graph::set_fill_color( Color c)
+Bar_graph::Bar_graph(Point orig, double xscale, double yscale, vector<double> v):
+    origin{ orig }, x_scale{ xscale }, y_scale{ yscale }, spacing{ 10 }, data{ v }
 {
-    for (int i = 0; i < bars.size(); ++i) {
-        bars[i].set_fill_color(c);
-    }
+    draw_lines();
 }
 
 void Bar_graph::draw_lines() const
 {
-    for (int i = 0; i < bars.size(); ++i) {      
-        bars[i].draw();
-    }
+    int w = x_scale-spacing;
+    for (int i = 0; i < data.size(); ++i) {
+        int h = data[i]*y_scale;
+        int x = (origin.x + (i * (w + spacing)));
+        int y = origin.y - data[i] * y_scale;
+        Point p { x,y };
+        if (fill_color().visibility()) {    // fill
+            fl_color(fill_color().as_int());
+            fl_rectf(p.x, p.y, w, h);
+        }
+
+        if (color().visibility()) {    // lines on top of fill
+            fl_color(color().as_int());
+            fl_rectf(p.x, p.y, w, h);
+        }
+    }   
 }
+
+//add(Point{xy.x+int(r*xscale),xy.y-int(f(r)*yscale)});

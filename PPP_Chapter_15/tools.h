@@ -41,15 +41,19 @@ namespace Graph_lib {
     //       holding N values, and each value should be represented by a “bar” that is
     //       a rectangle where the height represents the value.
 
-    struct Bar_graph :My_fct {
-        Bar_graph(Fct f, double r1, double r2, Point orig,
-            int count, double xscale, double yscale);
+    struct Bar_graph :Shape {
+        Bar_graph(Point orig, double xscale, double yscale);
+        Bar_graph(Point orig, double xscale, double yscale, vector<double> v);
         void add_data(double d) { data.push_back(d); }
         void draw_lines() const;
-        void set_fill_color( Color c);
+        void set_spacing(int x) { spacing = x; }
     private:
         vector<double> data;
         Vector_ref<Shape> bars;
+        Point origin;
+        double x_scale;
+        double y_scale;
+        int spacing;
     };
 
 }	// end of namespace Graph_lib
