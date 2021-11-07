@@ -8,6 +8,7 @@
 #include "std_lib_facilities.h"
 #include "tools.h"
 #include <math.h>
+#define PI 3.14159265
 
 using namespace Graph_lib;
 
@@ -54,6 +55,8 @@ double leibniz(double x)
     //cout << sum<<'\n';
     return sum;
 }
+
+
 //-------------------------------------------------------------------------
 
 int main()
@@ -69,10 +72,13 @@ try
 
     My_fct s{ leibniz,r_min,r_max,orig,n_points,x_scale,y_scale };
     s.set_color(Color::green); 
+    My_fct s2{ [](double x) {return PI / 4; },r_min,r_max,orig,n_points,x_scale,y_scale };
+    s2.set_color(Color::blue);
 
     win.attach(x);
     win.attach(y);
     win.attach(s);
+    win.attach(s2);
 
     gui_main();
 }
