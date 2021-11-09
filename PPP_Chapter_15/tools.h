@@ -36,7 +36,7 @@ namespace Graph_lib {
         double y_scale_p;
     };
 
-    //----------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------
     //    6. Design and implement a bar graph class.Its basic data is a vector<double>
     //       holding N values, and each value should be represented by a “bar” that is
     //       a rectangle where the height represents the value.
@@ -55,6 +55,37 @@ namespace Graph_lib {
         double y_scale;
         int spacing;
     };
+    //---------------------------------------------------------------------------------------
+    // 8. Here is a collection of heights in centimeters together with the number
+    //    of people in a group of that height(rounded to the nearest 5cm) : (170, 7),
+    //    (175, 9), (180, 23), (185, 17), (190, 6), (195, 1).How would you graph that
+    //    data ? If you can’t think of anything better, do a bar graph.Remember to
+    //    provide axes and labels.Place the data in a fileand read it from that file.
+
+    struct Human_height :Shape {
+        Human_height(Point orig, double xscale, double yscale);
+
+        struct Pairs {
+            Pairs(int h_cm, int n);
+            Pairs() :height{ 0 }, num{ 0 } {}
+
+            int height;
+            int num;
+        };
+
+        Pairs get_data(int i) { return v_pairs[i]; }
+        int get_size() { return v_pairs.size(); }
+        void add_data(int h, int n) { v_pairs.push_back({ h,n }); }
+
+    private:
+        Point origin;
+        double x_scale;
+        double y_scale;
+        vector<Pairs> v_pairs;
+    };
+
+
+    //---------------------------------------------------------------------------------------
 
 }	// end of namespace Graph_lib
 

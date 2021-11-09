@@ -64,5 +64,8 @@
     <Text Include="japanese-age-data.txt">
       <Filter>Source Files</Filter>
     </Text>
+    <Text Include="height_input.txt">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

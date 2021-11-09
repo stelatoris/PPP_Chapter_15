@@ -70,7 +70,7 @@ void My_fct::set_function(const Fct& f)
 }
 
 //-------------------------------------------------------------------------
-// 5.
+// 6.
 
 Bar_graph::Bar_graph(Point orig, double xscale, double yscale) :
     origin{ orig }, x_scale{ xscale }, y_scale{ yscale }, spacing{10}
@@ -92,6 +92,7 @@ void Bar_graph::draw_lines() const
         int x = (origin.x + (i * (w + spacing)));
         int y = origin.y - data[i] * y_scale;
         Point p { x,y };
+
         if (fill_color().visibility()) {    // fill
             fl_color(fill_color().as_int());
             fl_rectf(p.x, p.y, w, h);
@@ -104,4 +105,23 @@ void Bar_graph::draw_lines() const
     }   
 }
 
+//---------------------------------------------------------------------------------------
+    // 8. Here is a collection of heights in centimeters together with the number
+    //    of people in a group of that height(rounded to the nearest 5cm) : (170, 7),
+    //    (175, 9), (180, 23), (185, 17), (190, 6), (195, 1).How would you graph that
+    //    data ? If you can’t think of anything better, do a bar graph.Remember to
+    //    provide axes and labels.Place the data in a fileand read it from that file.
+
+Human_height::Pairs::Pairs(int h_cm, int n) :
+    height{ h_cm }, num{ n }
+{    
+}
+
+Human_height::Human_height(Point orig, double xscale, double yscale) :
+    origin{ orig }, x_scale{ xscale }, y_scale{ yscale }
+{
+}
+
 //add(Point{xy.x+int(r*xscale),xy.y-int(f(r)*yscale)});
+
+
