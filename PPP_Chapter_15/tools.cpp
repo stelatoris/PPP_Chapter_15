@@ -118,10 +118,36 @@ Human_height::Pairs::Pairs(int h_cm, int n) :
 }
 
 Human_height::Human_height(Point orig, double xscale, double yscale) :
-    origin{ orig }, x_scale{ xscale }, y_scale{ yscale }
+    origin{ orig }, x_scale{ xscale }, y_scale{ yscale }, spacing{ 10 }
 {
+    draw_lines();
 }
 
-//add(Point{xy.x+int(r*xscale),xy.y-int(f(r)*yscale)});
+void Human_height::draw_lines() const
+// bars drawn horizontally from Y axis
+// X-axis shows number of people
+// y-axis shows height
+{
+    int h = y_scale - spacing;
+    for (int i = 0; i < v_pairs.size(); ++i) {
+        int w = v_pairs[i].num * x_scale;
+        int x = origin.x;
+        int y = (origin.y - y_scale - (i * (h + spacing)));
+        Point p{ x,y };
+
+        if (fill_color().visibility()) {    // fill
+            fl_color(fill_color().as_int());
+            fl_rectf(p.x, p.y, w, h);
+        }
+
+        if (color().visibility()) {    // lines on top of fill
+            fl_color(color().as_int());
+            fl_rectf(p.x, p.y, w, h);
+        }
+    }    
+}
+
+//---------------------------------------------------------------------------------------
+
 
 

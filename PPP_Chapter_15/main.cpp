@@ -16,22 +16,25 @@ using namespace Graph_lib;
 constexpr int xmax = 1200;   // window size
 constexpr int ymax = 1200;
 
-constexpr int xlength = 1200;    // Axis length
-constexpr int ylength = 1200;
+constexpr int xlength = 800;    // Axis length
+constexpr int ylength = 800;
 
-constexpr Point x_axis_p = { (xmax/2)-(xlength/2),(ymax / 2) };  // starting point of axis to cross both at (300,300)
-constexpr Point y_axis_p = { xmax / 2,(ymax / 2) + (ylength / 2) };
+constexpr int x_offset = 100;
+constexpr int y_offset = 100;
 
-constexpr int x_scale = 40;
-constexpr int y_scale = 40;
+constexpr Point x_axis_p = { x_offset, ylength + y_offset };  // starting point of axis to cross both at (300,300)
+constexpr Point y_axis_p = { x_offset, ylength + y_offset };
+
+constexpr int x_scale = 20;
+constexpr int y_scale = 100;
 
 constexpr int r_min = 1; // range [–10:11)
 constexpr int r_max = 10;
 
 constexpr int n_points = 10; // number of points used in range
 
-constexpr int x_orig = xmax / 2; // position of (0,0) is center of window
-constexpr int y_orig = ymax / 2;
+constexpr int x_orig = x_offset; // position of (0,0) is center of window
+constexpr int y_orig = ylength + y_offset;
 constexpr Point orig{ x_orig,y_orig };
 
 //-------------------------------------------------------------------------
@@ -78,7 +81,7 @@ try
     ifstream ifs{ iname };
     if (!ifs)error("can't open input file", iname);
 
-    //ifs.exceptions(ifs.exceptions() | ios_base::badbit);
+    ifs.exceptions(ifs.exceptions() | ios_base::badbit);
 
     Human_height set1{ orig,x_scale,y_scale };
 
@@ -90,18 +93,16 @@ try
         cout << set1.get_data(i) << '\n';
     }
     
-    /*Graph_lib::Window win{ Point{100,100},xmax,ymax,"Exercise 08" };
+    Graph_lib::Window win{ Point{100,100},xmax,ymax,"Exercise 08" };
 
-    Axis x{ Axis::x,x_axis_p,xlength,xlength / x_scale,"1==40 pixels" };
-    Axis y{ Axis::y,y_axis_p,ylength,ylength / y_scale,"1==40 pixels" };
-
-
+    Axis x{ Axis::x,x_axis_p,xlength,xlength / x_scale,"Number of people" };
+    Axis y{ Axis::y,y_axis_p,ylength,ylength / y_scale,"Height in cm" };
 
     win.attach(x);
     win.attach(y);
+    win.attach(set1);
 
-
-    gui_main();*/
+    gui_main();
 }
 
 catch (std::exception& e) {

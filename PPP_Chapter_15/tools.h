@@ -73,15 +73,20 @@ namespace Graph_lib {
             int num;
         };
 
-        Pairs get_data(int i) { return v_pairs[i]; }
-        int get_size() { return v_pairs.size(); }
+        void draw_lines() const;
         void add_data(int h, int n) { v_pairs.push_back({ h,n }); }
+        void set_spacing(int x) { spacing = x; }
+
+        Pairs get_data(int i) { return v_pairs[i]; }
+        int get_size() { return v_pairs.size(); } 
 
     private:
+        vector<Pairs> v_pairs;
         Point origin;
         double x_scale;
         double y_scale;
-        vector<Pairs> v_pairs;
+        int spacing;
+        
     };
 
 
