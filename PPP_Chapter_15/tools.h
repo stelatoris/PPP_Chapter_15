@@ -86,7 +86,7 @@ namespace Graph_lib {
         double x_scale;
         double y_scale;
         int spacing;
-        
+              
     };
 
 

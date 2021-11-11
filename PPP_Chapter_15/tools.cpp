@@ -120,6 +120,7 @@ Human_height::Pairs::Pairs(int h_cm, int n) :
 Human_height::Human_height(Point orig, double xscale, double yscale) :
     origin{ orig }, x_scale{ xscale }, y_scale{ yscale }, spacing{ 10 }
 {
+    
     draw_lines();
 }
 
@@ -143,7 +144,7 @@ void Human_height::draw_lines() const
         if (color().visibility()) {    // lines on top of fill
             fl_color(color().as_int());
             fl_rectf(p.x, p.y, w, h);
-        }
+        }        
     }    
 }
 
